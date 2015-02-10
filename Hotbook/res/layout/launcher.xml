@@ -14,4 +14,28 @@
                android:src="@drawable/splas_background" 
                android:contentDescription="@string/none"/>
 
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="14dp"
+        android:text="@string/register" 
+        android:background="@android:color/transparent"
+        android:textColor="@color/themeWhite"/>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button1"
+        android:layout_alignBottom="@+id/button1"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="22dp"
+        android:text="@string/login"
+        android:background="@android:color/transparent"
+        android:textColor="@color/themeWhite"/>
+
 </RelativeLayout>

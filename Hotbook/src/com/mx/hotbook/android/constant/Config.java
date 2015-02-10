@@ -7,5 +7,6 @@ public class Config {
   public static final Integer URL_CONNECTION_READ_TIMEOUT = 3000;
   public static final Integer IMG_REQUIRED_SIZE = 70;
   public static final Integer IMG_SCALE = 1;
+  public static final String APP_FONT_NAME ="SohoStd-MediumCondensed";
 
 }

@@ -5,8 +5,6 @@ import java.security.MessageDigest;
 import com.mx.hotbook.android.R;
 import com.mx.hotbook.android.ui.AbstractUI;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -20,19 +18,7 @@ public class Launcher extends AbstractUI {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.launcher);
-		final Activity caller = this;
 		printDebugerHashKey();
-		Thread splashTread = new Thread() {
-		      public void run() {
-		        try {
-			         sleep(com.mx.hotbook.android.constant.Config.SPLASH_PERIOD);
-				     startActivity(new Intent(caller.getApplicationContext(), Login.class)); 
-			    } catch(Exception e) {
-				  Log.e(TAG, "Inicialization failed: " + e);
-			    } 
-		      } 
-		    };
-			splashTread.start();
 	}
 	
 	private void printDebugerHashKey(){
