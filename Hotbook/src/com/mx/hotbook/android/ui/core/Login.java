@@ -24,6 +24,7 @@ import com.facebook.widget.LoginButton.OnErrorListener;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.mx.hotbook.android.R;
+import com.mx.hotbook.android.constant.Config;
 import com.mx.hotbook.android.ui.AbstractUI;
 import com.mx.hotbook.android.util.ws.RestClient;
 
@@ -75,14 +76,23 @@ public class Login extends AbstractUI{
   
   private void callSignUpService(final String mail, final String password){
 	RequestParams params = new RequestParams();
-	params.add("username", mail);
-	params.add("password", password);
+//	params.add("username", mail);
+//	params.add("password", password);
+	params.add("username", "editor1");
+	params.add("password", "editor1");
 	RestClient.post("sign_up", params, new JsonHttpResponseHandler() {
        @Override
        public void onSuccess(int statusCode, Header[] headers
     		                         , JSONObject response) {
-    	 try {
-			  setSession(response.getInt("id"), mail);
+    	 String status = null;
+    	 try{
+    		 status = response.getString("status");
+    		 if(status.equals(Config.WS_STATUS_OK)){
+			    setSession(response.getInt("id"), mail);
+			    startActivity(new Intent(ctx, Home.class));
+    		 } else {
+    			 showMessage(status);
+    		 }
 		 } catch (JSONException e) {
 			e.printStackTrace();
 			showMessage(R.string.unexpectedError);

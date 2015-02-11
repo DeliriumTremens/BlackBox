@@ -11,5 +11,6 @@ public class Config {
   public static final String DRAWER_META_DATA_NAME = "hasLateralMenu";
   public static final String WS_BASE_PATH = "http://kelevrads.com/hotbook/services/";
   public static final String WS_METHOD_POSTFIX = ".php";
+  public static final String WS_STATUS_OK = "ok";
 
 }

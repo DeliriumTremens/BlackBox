@@ -38,6 +38,9 @@
         
         <activity android:name="com.mx.hotbook.android.ui.core.Register"
                   android:theme="@android:style/Theme.Holo.Light.NoActionBar"/>
+        
+        <activity android:name="com.mx.hotbook.android.ui.core.Home"
+                  android:theme="@android:style/Theme.Holo.Light.NoActionBar"/>
          
     </application>
 
