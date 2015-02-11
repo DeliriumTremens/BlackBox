@@ -9,5 +9,6 @@ public class Config {
   public static final Integer IMG_SCALE = 1;
   public static final String APP_FONT_NAME ="SohoStd-MediumCondensed";
   public static final String DRAWER_META_DATA_NAME = "hasLateralMenu";
+  public static final String BASE_WS_PATH = "http://kelevrads.com/hotbook/services/";
 
 }
