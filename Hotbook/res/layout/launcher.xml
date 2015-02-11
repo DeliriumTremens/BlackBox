@@ -4,38 +4,42 @@
     android:layout_height="match_parent"
     tools:context="com.mx.hotbook.android.ui.core.Launcher" >
 
-    <ImageView android:id="@+id/imageView1"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
+    <ImageView android:id="@+id/imgBackground"
+               android:layout_width="fill_parent"
+               android:layout_height="fill_parent"
                android:layout_alignParentLeft="true"
                android:scaleType="fitXY"
                android:layout_alignParentTop="true"
                android:layout_alignParentStart="true"
-               android:src="@drawable/splas_background" 
+               android:src="@drawable/splash_background" 
                android:contentDescription="@string/none"/>
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="14dp"
-        android:text="@string/register" 
-        android:background="@android:color/transparent"
-        android:textColor="@color/themeWhite"/>
+    <Button android:id="@+id/bnRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="16dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginEnd="14dp"
+            android:text="@string/register" 
+            android:background="@android:color/transparent"
+            android:textColor="@color/themeWhite"
+            android:onClick="onBnRegisterClick"/>
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button1"
-        android:layout_alignBottom="@+id/button1"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="22dp"
-        android:text="@string/login"
-        android:background="@android:color/transparent"
-        android:textColor="@color/themeWhite"/>
+    <Button android:id="@+id/bnLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/bnRegister"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="22dp"
+            android:layout_marginLeft="22dp"
+            android:text="@string/login"
+            android:background="@android:color/transparent"
+            android:textColor="@color/themeWhite"
+            android:onClick="onBnLoginClick"/>
 
 </RelativeLayout>
