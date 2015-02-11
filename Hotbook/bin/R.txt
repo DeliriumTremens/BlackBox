@@ -229,7 +229,7 @@ int id EditText02 0x7f0a004f
 int id EditText03 0x7f0a004e
 int id EditText04 0x7f0a0050
 int id EditText05 0x7f0a0051
-int id action_settings 0x7f0a0053
+int id action_settings 0x7f0a0054
 int id adjust_height 0x7f0a0001
 int id adjust_width 0x7f0a0002
 int id authButton 0x7f0a0049
@@ -239,6 +239,7 @@ int id book_now 0x7f0a0011
 int id bottom 0x7f0a001d
 int id box_count 0x7f0a001a
 int id button 0x7f0a001b
+int id button1 0x7f0a0053
 int id buyButton 0x7f0a000d
 int id buy_now 0x7f0a0012
 int id buy_with_google 0x7f0a0013

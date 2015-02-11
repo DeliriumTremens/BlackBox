@@ -19,7 +19,7 @@ public class RestClient {
 	client.post(getAbsoluteUrl(method), params, responseHandler);
   }
 
-  private static String getAbsoluteUrl(String relativeUrl) {
-	return Config.BASE_WS_PATH + relativeUrl;
+  private static String getAbsoluteUrl(String method) {
+	return Config.WS_BASE_PATH + method + Config.WS_METHOD_POSTFIX;
   }
 }
