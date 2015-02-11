@@ -2,11 +2,16 @@ package com.mx.hotbook.android.ui.core;
 
 import java.util.Arrays;
 
+import org.apache.http.Header;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.facebook.FacebookException;
 import com.facebook.Request;
@@ -16,12 +21,15 @@ import com.facebook.SessionState;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 import com.facebook.widget.LoginButton.OnErrorListener;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.mx.hotbook.android.R;
 import com.mx.hotbook.android.ui.AbstractUI;
+import com.mx.hotbook.android.util.ws.RestClient;
 
 @SuppressWarnings("deprecation")
 public class Login extends AbstractUI{
-
+  
   @Override
   public View getLayout(LayoutInflater inflater, ViewGroup container) {
 	View view = inflater.inflate(R.layout.login, container, false);
@@ -57,6 +65,36 @@ public class Login extends AbstractUI{
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
 	super.onActivityResult(requestCode, resultCode, data);
 	Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
+  }
+  
+  public void onClickBnLogin(View view){
+	EditText etMail = (EditText) rootView.findViewById(R.id.etMail);
+	EditText etPassword = (EditText) rootView.findViewById(R.id.etPassword);
+	callSignUpService(etMail.getText().toString(), etPassword.getText().toString());
+  }
+  
+  private void callSignUpService(final String mail, final String password){
+	RequestParams params = new RequestParams();
+	params.add("username", mail);
+	params.add("password", password);
+	RestClient.post("sign_up", params, new JsonHttpResponseHandler() {
+       @Override
+       public void onSuccess(int statusCode, Header[] headers
+    		                         , JSONObject response) {
+    	 try {
+			  setSession(response.getInt("id"), mail);
+		 } catch (JSONException e) {
+			e.printStackTrace();
+			showMessage(R.string.unexpectedError);
+		}
+       }
+       @Override
+       public void onFailure(int statusCode, Header[] headers
+    		  , String responseString, Throwable throwable) {
+    	   showMessage(responseString);
+       }
+          
+    });
   }
 	 
 }

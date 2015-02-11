@@ -25,7 +25,7 @@
                                      fb:login_text="Login with Facebook" 
                                      fb:logout_text="Logout"/>
 
-    <EditText android:id="@+id/editText1"
+    <EditText android:id="@+id/etMail"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_below="@+id/authButton"
@@ -38,27 +38,30 @@
         <requestFocus />
     </EditText>
 
-    <EditText android:id="@+id/editText2"
+    <EditText android:id="@+id/etPassword"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_alignLeft="@+id/editText1"
-              android:layout_alignStart="@+id/editText1"
-              android:layout_below="@+id/editText1"
+              android:layout_alignLeft="@+id/etMail"
+              android:layout_alignStart="@+id/etMail"
+              android:layout_below="@+id/etMail"
               android:drawableLeft="@drawable/common_password_icon"
               android:drawableStart="@drawable/common_password_icon"
               android:ems="10"
               android:hint="@string/password"
               android:inputType="textPassword" />
 
-    <Button android:id="@+id/imageButton1"
+    <Button android:id="@+id/bnLogin"
                  android:layout_width="200dp"
                  android:layout_height="wrap_content"
-                 android:layout_alignLeft="@+id/editText2"
-                 android:layout_alignStart="@+id/editText2"
-                 android:layout_below="@+id/editText2"
+                 android:layout_alignLeft="@+id/etPassword"
+                 android:layout_alignStart="@+id/etPassword"
+                 android:layout_below="@+id/etPassword"
                  android:layout_marginTop="38dp"
                  android:scaleType="fitCenter"
                  android:contentDescription="@string/none"
-                 android:text="@string/login"/>
+                 android:background="@android:color/transparent"
+                 android:textColor="@color/themeBlack"
+                 android:text="@string/login"
+                 android:onClick="onClickBnLogin"/>/>
 
 </RelativeLayout>

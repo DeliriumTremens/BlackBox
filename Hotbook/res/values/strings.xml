@@ -15,5 +15,12 @@
     <string name="login">LOGIN</string>
     <string name="none"></string>
     <string name="register">REGISTER</string>
+    <string name="home">Home</string>
+    <string name="explore">Explore</string>
+    <string name="venues">Venues</string>
+    <string name="newPost">New Post</string>
+    <string name="profile">Profile</string>
+    
+    <string name="unexpectedError">Unexpected error</string>
 
 </resources>

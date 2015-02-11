@@ -5,6 +5,7 @@ import com.mx.hotbook.android.R;
 import com.mx.hotbook.android.constant.Config;
 import com.mx.hotbook.android.util.calligraphy.CalligraphyConfig;
 import com.mx.hotbook.android.util.calligraphy.CalligraphyContextWrapper;
+import com.mx.hotbook.android.vo.core.User;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -24,13 +25,17 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public abstract class AbstractUI extends Activity {
  
   protected static final String TAG = "LorantAsegura";
   protected DrawerLayout drawerLayout = null;
-  protected RelativeLayout contentLayout = null;
-  private ActionBar actionBar = null;
+  protected RelativeLayout rootView = null;
+  protected ActionBar actionBar = null;
+  protected Context ctx = null;
+  
+  protected static User user = null;
   
   public abstract View getLayout(LayoutInflater inflater, ViewGroup container);
 	
@@ -40,6 +45,11 @@ public abstract class AbstractUI extends Activity {
 	                          .setFontAttrId(R.attr.fontPath)
 	                          .build()
 	     );
+  }
+  
+  public AbstractUI(){
+	 super();
+	 ctx = this;
   }
 	
   @Override
@@ -126,7 +136,7 @@ public abstract class AbstractUI extends Activity {
 	 
 	 @Override
 	 public void onViewCreated(View view, Bundle savedInstanceState){
-		 contentLayout = (RelativeLayout) view;
+		 rootView = (RelativeLayout) view;
 	 }
 	 
   }
@@ -140,6 +150,20 @@ public abstract class AbstractUI extends Activity {
   @Override
   protected void attachBaseContext(Context newBase) {
     super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+  }
+  
+  protected void setSession(Integer id, String mail){
+	user = new User();
+	user.setId(id);
+	user.setMail(mail);
+  }
+  
+  public void showMessage(String message){
+	 Toast.makeText(ctx, message, Toast.LENGTH_SHORT).show();
+  }
+  
+  public void showMessage(Integer resId){
+	 Toast.makeText(ctx, resId, Toast.LENGTH_SHORT).show();
   }
 
 }
