@@ -2,13 +2,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mx.hotbook.android.ui.core.Launcher" >
+    tools:context="com.mx.hotbook.android.ui.core.Home" >
 
-    <include
-        android:layout_width="wrap_content"
-        android:layout_height="70dip"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        layout="@layout/common_bottom_menu" />
-    
+     <ScrollView android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_above="@+id/include1"
+                 android:layout_alignParentLeft="true"
+                 android:layout_alignParentStart="true"
+                 android:layout_alignParentTop="true">
+        <LinearLayout android:id="@+id/feedContainer"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical" />
+     </ScrollView>
+
+     <include android:id="@+id/include1"
+              android:layout_width="wrap_content"
+              android:layout_height="70dip"
+              android:layout_alignParentBottom="true"
+              android:layout_alignParentRight="true"
+              android:layout_alignParentEnd="true"
+              layout="@layout/common_menu_fragment" />
+
 </RelativeLayout>
