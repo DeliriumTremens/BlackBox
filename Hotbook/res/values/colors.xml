@@ -8,4 +8,5 @@
    <color name="themeDarkBlue">#003039</color>
    <color name="themeLightBlue">#BFE4F6</color>
    <color name="themeGreen">#39B54A</color>
+   <color name="loaderShadow">#80000000</color>
 </resources>

@@ -25,7 +25,6 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public abstract class AbstractUI extends Activity {
  
@@ -34,6 +33,7 @@ public abstract class AbstractUI extends Activity {
   protected RelativeLayout rootView = null;
   protected ActionBar actionBar = null;
   protected Context ctx = null;
+  protected View loader = null;
   
   protected static User user = null;
   
@@ -56,6 +56,7 @@ public abstract class AbstractUI extends Activity {
   protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.container);
+	loader = findViewById(R.id.loader);
 	ContentManager contentManager = new ContentManager();
 	setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 	getFragmentManager().beginTransaction().replace(R.id.content_frame
@@ -77,6 +78,10 @@ public abstract class AbstractUI extends Activity {
 			                                                    .imgBnAction);
 	  actionButton.setBackgroundResource(resId);
 	}
+  }
+  
+  public View getLoader(){
+	return loader;
   }
   
   protected void setActionBarTitle(Integer titleResId){
@@ -158,12 +163,10 @@ public abstract class AbstractUI extends Activity {
 	user.setMail(mail);
   }
   
-  public void showMessage(String message){
-	 Toast.makeText(ctx, message, Toast.LENGTH_SHORT).show();
-  }
-  
-  public void showMessage(Integer resId){
-	 Toast.makeText(ctx, resId, Toast.LENGTH_SHORT).show();
+  public void hideLoader(){
+	if((loader != null)){
+	  loader.setVisibility(View.GONE);
+	}
   }
 
 }

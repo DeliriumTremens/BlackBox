@@ -20,4 +20,22 @@
         android:divider="@android:color/transparent"
         android:dividerHeight="0dp"
         android:background="@color/themeBlack"/>
+    
+   <RelativeLayout android:id="@+id/loader"
+	                android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/loaderShadow"
+                    android:visibility="gone">
+
+	    <ProgressBar
+	        style="?android:attr/progressBarStyle"
+	        android:layout_width="70dp"
+	        android:layout_height="70dp"
+	        android:layout_alignParentTop="true"
+	        android:layout_centerHorizontal="true"
+	        android:layout_marginTop="170dp"
+	        android:indeterminate="true" />
+
+	</RelativeLayout>
+	    
 </android.support.v4.widget.DrawerLayout>

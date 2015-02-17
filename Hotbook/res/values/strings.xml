@@ -26,6 +26,8 @@
     <string name="title">Title</string>
     <string name="description">Description</string>
     
-    <string name="unexpectedError">Unexpected error</string>
+    <string name="errUnexpected">Unexpected error</string>
+    <string name="errCommunications">Communication Error (%1$s)</string>
+    <string name="errNull">Empty response error</string>
 
 </resources>

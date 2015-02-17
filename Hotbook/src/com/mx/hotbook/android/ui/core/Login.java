@@ -1,8 +1,5 @@
 package com.mx.hotbook.android.ui.core;
 
-import java.util.Arrays;
-
-import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,44 +18,30 @@ import com.facebook.SessionState;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 import com.facebook.widget.LoginButton.OnErrorListener;
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.mx.hotbook.android.R;
 import com.mx.hotbook.android.constant.Config;
 import com.mx.hotbook.android.ui.AbstractUI;
+import com.mx.hotbook.android.ui.util.ErrorManager;
+import com.mx.hotbook.android.util.RestResponseHandler;
 import com.mx.hotbook.android.util.ws.RestClient;
 
 @SuppressWarnings("deprecation")
-public class Login extends AbstractUI{
+public class Login extends AbstractUI implements Session.StatusCallback, OnErrorListener {
+  
+  private EditText etMail = null;
+  private EditText etPassword = null;
+  
   
   @Override
   public View getLayout(LayoutInflater inflater, ViewGroup container) {
 	View view = inflater.inflate(R.layout.login, container, false);
 	LoginButton authButton = (LoginButton) view.findViewById(R.id.authButton);
-	authButton.setOnErrorListener(new OnErrorListener() {   
-	   @Override
-	   public void onError(FacebookException error) {
-	    Log.i(TAG, "Error " + error.getMessage());
-	   }
-	});
-	authButton.setReadPermissions(Arrays.asList("public_profile","email"));
-	authButton.setSessionStatusCallback(new Session.StatusCallback() {
-	   @Override
-	   public void call(Session session, SessionState state, Exception exception) {    
-	     if(session.isOpened()) {
-	       Log.i(TAG,"Access Token"+ session.getAccessToken());
-	       Request.executeMeRequestAsync(session, new Request.GraphUserCallback() {
-	            @Override
-	            public void onCompleted(GraphUser user,Response response) {
-	              if(user != null){ 
-	                Log.i(TAG,"User ID "+ user.getId());
-	                Log.i(TAG,"Email "+ user.asMap().get("email"));
-	              }
-	            }
-	        });
-	      }
-	   }
-	  });
+	etMail = (EditText) view.findViewById(R.id.etMail);
+	etPassword = (EditText) view.findViewById(R.id.etPassword);
+	authButton.setOnErrorListener(this);
+	authButton.setReadPermissions(Config.FB_PERMISSIONS);
+	authButton.setSessionStatusCallback(this);
 	return view;
   }
 
@@ -69,42 +52,43 @@ public class Login extends AbstractUI{
   }
   
   public void onClickBnLogin(View view){
-	EditText etMail = (EditText) rootView.findViewById(R.id.etMail);
-	EditText etPassword = (EditText) rootView.findViewById(R.id.etPassword);
-	callSignUpService(etMail.getText().toString(), etPassword.getText().toString());
+	callSignUpService();
   }
   
-  private void callSignUpService(final String mail, final String password){
+  private void callSignUpService(){
 	RequestParams params = new RequestParams();
-//	params.add("username", mail);
-//	params.add("password", password);
+//	params.add("username", etMail.getText().toString());
+//	params.add("password", etPassword.getText().toString());
 	params.add("username", "editor1");
 	params.add("password", "editor1");
-	RestClient.post("sign_up", params, new JsonHttpResponseHandler() {
+	RestClient.post("sign_up", params, new RestResponseHandler(this) {
        @Override
-       public void onSuccess(int statusCode, Header[] headers
-    		                         , JSONObject response) {
-    	 String status = null;
-    	 try{
-    		 status = response.getString("status");
-    		 if(status.equals(Config.WS_STATUS_OK)){
-			    setSession(response.getInt("id"), mail);
-			    startActivity(new Intent(ctx, Home.class));
-    		 } else {
-    			 showMessage(status);
-    		 }
-		 } catch (JSONException e) {
-			e.printStackTrace();
-			showMessage(R.string.unexpectedError);
-		}
+       public void onSuccess(JSONObject response) throws JSONException {
+		  setSession(response.getInt("id"), etMail.getText().toString());
+		  startActivity(new Intent(ctx, Home.class));
        }
-       @Override
-       public void onFailure(int statusCode, Header[] headers
-    		  , String responseString, Throwable throwable) {
-    	   showMessage(responseString);
-       }
-          
     });
+  }
+
+  @Override
+  public void call(Session session, SessionState state, Exception exception) {
+	if(session.isOpened()) {
+	  Log.i(TAG,"Access Token"+ session.getAccessToken());
+	  Request.executeMeRequestAsync(session, new Request.GraphUserCallback() {
+	     @Override
+	     public void onCompleted(GraphUser user,Response response) {
+	       if(user != null){ 
+	         Log.i(TAG,"User ID "+ user.getId());
+	         Log.i(TAG,"Email "+ user.asMap().get("email"));
+	       }
+	     }
+	  });
+	}
+  }
+
+  @Override
+  public void onError(FacebookException error) {
+	  ErrorManager.show(error.getMessage(), this);
   }
 	 
 }

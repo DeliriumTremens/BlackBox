@@ -2,6 +2,8 @@ package com.mx.hotbook.android.util;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+
+import android.text.TextUtils;
   
 public class Utilities {
 	
@@ -20,5 +22,15 @@ public class Utilities {
         }
     }
     catch(Exception ex){}
+  }
+  
+  public final static boolean isValidEmail(CharSequence target) {
+	return !TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS
+			                                     .matcher(target).matches();
+  }
+  
+  public final static boolean isValidPhone(CharSequence target) {
+	return !TextUtils.isEmpty(target) && android.util.Patterns.PHONE
+			                             .matcher(target).matches();
   }
 }

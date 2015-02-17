@@ -1,5 +1,8 @@
 package com.mx.hotbook.android.constant;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Config {
 	
   public static final Integer SPLASH_PERIOD = 1000;
@@ -12,5 +15,6 @@ public class Config {
   public static final String WS_BASE_PATH = "http://kelevrads.com/hotbook/services/";
   public static final String WS_METHOD_POSTFIX = ".php";
   public static final String WS_STATUS_OK = "ok";
+  public static final List<String> FB_PERMISSIONS = Arrays.asList("public_profile","email");
 
 }
