@@ -162,11 +162,5 @@ public abstract class AbstractUI extends Activity {
 	user.setId(id);
 	user.setMail(mail);
   }
-  
-  public void hideLoader(){
-	if((loader != null)){
-	  loader.setVisibility(View.GONE);
-	}
-  }
 
 }

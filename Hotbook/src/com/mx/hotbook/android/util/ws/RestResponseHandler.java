@@ -1,9 +1,11 @@
-package com.mx.hotbook.android.util;
+package com.mx.hotbook.android.util.ws;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.view.View;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.mx.hotbook.android.R;
@@ -14,13 +16,29 @@ import com.mx.hotbook.android.ui.util.ErrorManager;
 public abstract class RestResponseHandler extends JsonHttpResponseHandler {
 	
   private AbstractUI ctx = null;
+  private boolean showLoader = false;
+  private View loader = null;
 	
+  public RestResponseHandler (AbstractUI ctx, boolean showLoader){
+	this(ctx);
+	this.showLoader = showLoader;
+  }
+  
   public RestResponseHandler (AbstractUI ctx){
 	this.ctx = ctx;
+	loader = ctx.getLoader();
   }
 	
   public void onSuccess(JSONObject response)  throws JSONException{}
   public void onSuccess(JSONArray response)  throws JSONException{}
+  
+  
+  @Override
+  public final void onStart(){
+	if(showLoader && (loader != null)){
+	  loader.setVisibility(View.VISIBLE);  
+	}
+  }
   
   @Override
   final public void onSuccess(int statusCode, Header[] headers
@@ -37,7 +55,7 @@ public abstract class RestResponseHandler extends JsonHttpResponseHandler {
 		e.printStackTrace();
 		ErrorManager.show(R.string.errUnexpected, ctx);
 	} finally{
-		ctx.hideLoader();
+		hideLoader();
 	}
   }
   
@@ -50,7 +68,7 @@ public abstract class RestResponseHandler extends JsonHttpResponseHandler {
 			e.printStackTrace();
 			ErrorManager.show(R.string.errUnexpected, ctx);
 		} finally{
-			ctx.hideLoader();
+			hideLoader();
 		}
   }
 
@@ -76,6 +94,12 @@ public abstract class RestResponseHandler extends JsonHttpResponseHandler {
 		ErrorManager.show(response.toString(), ctx, statusCode);
 	} else {
 		ErrorManager.show(R.string.errNull, ctx);
+	}
+  }
+  
+  public void hideLoader(){
+	if((loader != null)){
+	  loader.setVisibility(View.GONE);
 	}
   }
 

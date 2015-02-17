@@ -1,4 +1,4 @@
-package com.mx.hotbook.android.ui.core;
+package com.mx.hotbook.android.ui.view;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,8 +23,8 @@ import com.mx.hotbook.android.R;
 import com.mx.hotbook.android.constant.Config;
 import com.mx.hotbook.android.ui.AbstractUI;
 import com.mx.hotbook.android.ui.util.ErrorManager;
-import com.mx.hotbook.android.util.RestResponseHandler;
 import com.mx.hotbook.android.util.ws.RestClient;
+import com.mx.hotbook.android.util.ws.RestResponseHandler;
 
 @SuppressWarnings("deprecation")
 public class Login extends AbstractUI implements Session.StatusCallback, OnErrorListener {

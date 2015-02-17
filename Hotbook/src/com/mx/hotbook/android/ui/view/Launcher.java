@@ -1,4 +1,4 @@
-package com.mx.hotbook.android.ui.core;
+package com.mx.hotbook.android.ui.view;
 
 import java.security.MessageDigest;
 

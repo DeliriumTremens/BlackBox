@@ -13,7 +13,6 @@ public class ErrorManager {
 	  
   public static void show(String message, AbstractUI ctx, Object ... var){
 	Toast.makeText(ctx, String.format(message, var), Toast.LENGTH_SHORT).show();
-	ctx.hideLoader();
   }
 
 }

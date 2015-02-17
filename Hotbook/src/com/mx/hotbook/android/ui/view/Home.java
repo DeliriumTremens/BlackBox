@@ -1,6 +1,7 @@
-package com.mx.hotbook.android.ui.core;
+package com.mx.hotbook.android.ui.view;
 
 import org.json.JSONArray;
+
 
 
 import android.view.LayoutInflater;
@@ -11,8 +12,8 @@ import android.widget.LinearLayout;
 import com.loopj.android.http.RequestParams;
 import com.mx.hotbook.android.R;
 import com.mx.hotbook.android.ui.AbstractUI;
-import com.mx.hotbook.android.util.RestResponseHandler;
 import com.mx.hotbook.android.util.ws.RestClient;
+import com.mx.hotbook.android.util.ws.RestResponseHandler;
 
 public class Home extends AbstractUI {
 

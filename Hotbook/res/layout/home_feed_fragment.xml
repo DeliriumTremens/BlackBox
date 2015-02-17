@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mx.hotbook.android.ui.core.Launcher" >
+    tools:context="com.mx.hotbook.android.ui.view.Launcher" >
 
     <ImageView android:id="@+id/imageView1"
                android:layout_width="wrap_content"
