@@ -35,8 +35,8 @@ public abstract class RestResponseHandler extends JsonHttpResponseHandler {
   
   @Override
   public final void onStart(){
-	if(showLoader && (loader != null)){
-	  loader.setVisibility(View.VISIBLE);  
+	if(showLoader){
+	  showLoader();  
 	}
   }
   
@@ -62,45 +62,64 @@ public abstract class RestResponseHandler extends JsonHttpResponseHandler {
   @Override
   public final void onSuccess(int statusCode, Header[] headers
 		                         , JSONArray response) {
-	  try {
-		  onSuccess(response);
-	  } catch (Exception e) {
-			e.printStackTrace();
-			ErrorManager.show(R.string.errUnexpected, ctx);
-		} finally{
-			hideLoader();
-		}
+	try{
+		onSuccess(response);
+	} catch(Exception e) {
+		e.printStackTrace();
+		ErrorManager.show(R.string.errUnexpected, ctx);
+	} finally{
+		hideLoader();
+	}
   }
 
   @Override
   public final void onFailure(int statusCode, Header[] headers
 		       , String responseString, Throwable throwable) {
-	  ErrorManager.show(R.string.errCommunications, ctx, statusCode);
+	try{
+	    ErrorManager.show(R.string.errCommunications, ctx, statusCode);
+	} finally{
+		hideLoader();
+	}
   }  
   
   @Override
   public final void onFailure(int statusCode, Header[] headers
 		                 , java.lang.Throwable throwable, JSONObject response) {
-	if(response != null){
-		ErrorManager.show(response.toString(),ctx , statusCode);
-	} else {
-		ErrorManager.show(R.string.errNull, ctx);
-    }
-  }
-  @Override
-  public final void onFailure(int statusCode, Header[] headers
-		                 , java.lang.Throwable throwable, JSONArray  response) {
-	if(response != null){
-		ErrorManager.show(response.toString(), ctx, statusCode);
-	} else {
-		ErrorManager.show(R.string.errNull, ctx);
+	try{
+	    if(response != null){
+		  ErrorManager.show(response.toString(),ctx , statusCode);
+	    } else {
+		   ErrorManager.show(R.string.errNull, ctx);
+        }
+	} finally{
+		hideLoader();
 	}
   }
   
-  public void hideLoader(){
+  @Override
+  public final void onFailure(int statusCode, Header[] headers
+		                 , java.lang.Throwable throwable, JSONArray  response) {
+    try{
+	  if(response != null){
+		ErrorManager.show(response.toString(), ctx, statusCode);
+	  } else {
+		ErrorManager.show(R.string.errNull, ctx);
+	  }
+    } finally{
+	  hideLoader();
+    }
+  }
+  
+  private void hideLoader(){
 	if((loader != null)){
 	  loader.setVisibility(View.GONE);
 	}
+  }
+  
+  private void showLoader(){
+	if((loader != null)){
+	  loader.setVisibility(View.VISIBLE);
+	} 
   }
 
 }

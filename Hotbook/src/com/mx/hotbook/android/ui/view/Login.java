@@ -61,7 +61,7 @@ public class Login extends AbstractUI implements Session.StatusCallback, OnError
 //	params.add("password", etPassword.getText().toString());
 	params.add("username", "editor1");
 	params.add("password", "editor1");
-	RestClient.post("sign_up", params, new RestResponseHandler(this) {
+	RestClient.post("sign_up", params, new RestResponseHandler(this, true) {
        @Override
        public void onSuccess(JSONObject response) throws JSONException {
 		  setSession(response.getInt("id"), etMail.getText().toString());
