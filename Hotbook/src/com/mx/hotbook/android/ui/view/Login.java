@@ -83,6 +83,7 @@ public class Login extends AbstractUI implements Session.StatusCallback, OnError
 	       }
 	     }
 	  });
+	  session.closeAndClearTokenInformation();
 	}
   }
 
