@@ -44,15 +44,14 @@ public class ImageLoader {
     executorService=Executors.newFixedThreadPool(5);
   }
   
-  public void DisplayImage(String url, int loader, ImageView imageView){
-    stub_id = loader;
+  public void display(String url, ImageView imageView){
     imageViews.put(imageView, url);
     Bitmap bitmap=memoryCache.get(url);
     if(bitmap!=null){
       imageView.setImageBitmap(bitmap);
     } else {
         queuePhoto(url, imageView);
-        imageView.setImageResource(loader);
+        imageView.setImageResource(stub_id);
     }
   }
   
@@ -96,6 +95,7 @@ public class ImageLoader {
   }
   
   private Bitmap decodeFile(File f){
+	Bitmap bm = null;
     try {
     	 BitmapFactory.Options o2 = null;
     	 int scale=Config.IMG_SCALE, width_tmp = 0, height_tmp = 0;
@@ -115,9 +115,11 @@ public class ImageLoader {
          }
          o2 = new BitmapFactory.Options();
          o2.inSampleSize=scale;
-         return BitmapFactory.decodeStream(new FileInputStream(f), null, o2);
-     } catch (FileNotFoundException ignored) {}
-     return null;
+         bm = BitmapFactory.decodeStream(new FileInputStream(f), null, o2);
+     } catch (Exception ex) {
+    	 ex.printStackTrace();
+     }
+     return bm;
   }
   
   private boolean imageViewReused(PhotoToLoad photoToLoad){

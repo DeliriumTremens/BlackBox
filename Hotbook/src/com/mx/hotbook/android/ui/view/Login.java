@@ -26,7 +26,6 @@ import com.mx.hotbook.android.ui.util.ErrorManager;
 import com.mx.hotbook.android.util.ws.RestClient;
 import com.mx.hotbook.android.util.ws.RestResponseHandler;
 
-@SuppressWarnings("deprecation")
 public class Login extends AbstractUI implements Session.StatusCallback, OnErrorListener {
   
   private EditText etMail = null;
@@ -73,16 +72,16 @@ public class Login extends AbstractUI implements Session.StatusCallback, OnError
   @Override
   public void call(Session session, SessionState state, Exception exception) {
 	if(session.isOpened()) {
-	  Log.i(TAG,"Access Token"+ session.getAccessToken());
-	  Request.executeMeRequestAsync(session, new Request.GraphUserCallback() {
-	     @Override
-	     public void onCompleted(GraphUser user,Response response) {
-	       if(user != null){ 
-	         Log.i(TAG,"User ID "+ user.getId());
-	         Log.i(TAG,"Email "+ user.asMap().get("email"));
-	       }
-	     }
-	  });
+	  Log.i(TAG,"Access Token"+ session.getAccessToken());	  
+	  Request.newMeRequest(session, new Request.GraphUserCallback() {
+		  @Override
+		  public void onCompleted(GraphUser user, Response response) {
+		    if (user != null) {
+		      Log.i(TAG,"User ID "+ user.getId());
+		      Log.i(TAG,"Email "+ user.asMap().get("email"));
+		    }
+		  }
+		}).executeAsync();
 	  session.closeAndClearTokenInformation();
 	}
   }

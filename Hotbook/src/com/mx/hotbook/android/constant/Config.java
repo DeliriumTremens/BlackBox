@@ -3,8 +3,12 @@ package com.mx.hotbook.android.constant;
 import java.util.Arrays;
 import java.util.List;
 
+import android.os.Environment;
+
 public class Config {
 	
+  public static final String BASE_LOCAL_PATH = "/storage/sdcard1/.hotbook";
+  public static final String CACHE_LOCAL_PATH = BASE_LOCAL_PATH + "/cache";
   public static final Integer SPLASH_PERIOD = 1000;
   public static final Integer URL_CONNECTION_CONNECT_TIMEOUT = 3000;
   public static final Integer URL_CONNECTION_READ_TIMEOUT = 3000;

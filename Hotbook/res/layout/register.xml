@@ -5,7 +5,7 @@
     tools:context="com.mx.hotbook.android.ui.view.Register" >
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/ivProfile"
         android:layout_width="wrap_content"
         android:layout_height="200dp"
         android:layout_alignParentEnd="true"
@@ -22,14 +22,14 @@
         android:id="@+id/authButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView1"
+        android:layout_below="@+id/ivProfile"
         android:layout_centerHorizontal="true"
         fb:login_text="Register with Facebook"
         fb:logout_text="Logout" />
 
     <EditText
-        android:id="@+id/editText1"
-        android:layout_width="wrap_content"
+        android:id="@+id/etMail"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/authButton"
         android:layout_centerHorizontal="true"
@@ -40,38 +40,38 @@
         android:hint="@string/mail" />
 
     <EditText
-        android:id="@+id/EditText01"
-        android:layout_width="wrap_content"
+        android:id="@+id/etName"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/EditText03"
+        android:layout_below="@+id/etRepeatPassword"
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:hint="@string/name"
-        android:inputType="textPassword" />
+        android:inputType="text" />
 
     <EditText
-        android:id="@+id/editText2"
-        android:layout_width="wrap_content"
+        android:id="@+id/etUserName"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/EditText02"
-        android:layout_alignStart="@+id/editText1"
-        android:layout_below="@+id/editText1"
+        android:layout_alignLeft="@+id/etPassword"
+        android:layout_alignStart="@+id/etMail"
+        android:layout_below="@+id/etMail"
         android:drawableLeft="@drawable/common_user_icon"
         android:drawableStart="@drawable/common_user_icon"
         android:ems="10"
         android:hint="@string/userName"
-        android:inputType="textPassword" >
+        android:inputType="text" >
 
         <requestFocus />
     </EditText>
 
     <EditText
-        android:id="@+id/EditText02"
-        android:layout_width="wrap_content"
+        android:id="@+id/etPassword"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/EditText03"
-        android:layout_alignStart="@+id/editText1"
-        android:layout_below="@+id/editText2"
+        android:layout_alignLeft="@+id/etRepeatPassword"
+        android:layout_alignStart="@+id/etMail"
+        android:layout_below="@+id/etUserName"
         android:drawableLeft="@drawable/common_password_icon"
         android:drawableStart="@drawable/common_password_icon"
         android:ems="10"
@@ -79,12 +79,12 @@
         android:inputType="textPassword" />
 
     <EditText
-        android:id="@+id/EditText03"
-        android:layout_width="wrap_content"
+        android:id="@+id/etRepeatPassword"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/EditText01"
-        android:layout_alignStart="@+id/editText1"
-        android:layout_below="@+id/EditText02"
+        android:layout_alignLeft="@+id/etName"
+        android:layout_alignStart="@+id/etMail"
+        android:layout_below="@+id/etPassword"
         android:drawableLeft="@drawable/common_password_icon"
         android:drawableStart="@drawable/common_password_icon"
         android:ems="10"
@@ -92,32 +92,32 @@
         android:inputType="textPassword" />
 
     <EditText
-        android:id="@+id/EditText04"
-        android:layout_width="wrap_content"
+        android:id="@+id/etWebPage"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/EditText05"
-        android:layout_alignStart="@+id/editText1"
-        android:layout_below="@+id/EditText01"
+        android:layout_alignLeft="@+id/etBiography"
+        android:layout_alignStart="@+id/etMail"
+        android:layout_below="@+id/etName"
         android:ems="10"
         android:hint="@string/webPage"
-        android:inputType="textPassword" />
+        android:inputType="text" />
 
     <EditText
-        android:id="@+id/EditText05"
-        android:layout_width="wrap_content"
+        android:id="@+id/etBiography"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/EditText01"
-        android:layout_alignStart="@+id/editText1"
-        android:layout_below="@+id/EditText04"
+        android:layout_alignLeft="@+id/etName"
+        android:layout_alignStart="@+id/etMail"
+        android:layout_below="@+id/etWebPage"
         android:ems="10"
         android:hint="@string/biography"
-        android:inputType="textPassword" />
+        android:inputType="text" />
 
     <Switch
         android:id="@+id/switch1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/EditText05"
+        android:layout_below="@+id/etBiography"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="17dp"
         android:text="@string/venue" />

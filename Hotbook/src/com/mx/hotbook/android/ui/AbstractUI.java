@@ -5,6 +5,7 @@ import com.mx.hotbook.android.R;
 import com.mx.hotbook.android.constant.Config;
 import com.mx.hotbook.android.util.calligraphy.CalligraphyConfig;
 import com.mx.hotbook.android.util.calligraphy.CalligraphyContextWrapper;
+import com.mx.hotbook.android.util.image.ImageLoader;
 import com.mx.hotbook.android.vo.core.User;
 
 import android.app.ActionBar;
@@ -34,6 +35,7 @@ public abstract class AbstractUI extends Activity {
   protected ActionBar actionBar = null;
   protected Context ctx = null;
   protected View loader = null;
+  protected ImageLoader imgLoader = null;
   
   protected static User user = null;
   
@@ -57,6 +59,7 @@ public abstract class AbstractUI extends Activity {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.container);
 	loader = findViewById(R.id.loader);
+	imgLoader = new ImageLoader(this);
 	ContentManager contentManager = new ContentManager();
 	setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 	getFragmentManager().beginTransaction().replace(R.id.content_frame

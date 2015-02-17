@@ -1,6 +1,9 @@
 package com.mx.hotbook.android.util.image;
 
 import java.io.File;
+
+import com.mx.hotbook.android.constant.Config;
+
 import android.content.Context;
   
 public class FileCache {
@@ -10,8 +13,7 @@ public class FileCache {
   public FileCache(Context context){
     if(android.os.Environment.getExternalStorageState().equals(android.os
     		                                 .Environment.MEDIA_MOUNTED)){
-       cacheDir=new File(android.os.Environment.getExternalStorageDirectory()
-    		                                                  ,".hotbox");
+       cacheDir=new File(Config.CACHE_LOCAL_PATH);
     } else {
        cacheDir=context.getCacheDir();
     }
