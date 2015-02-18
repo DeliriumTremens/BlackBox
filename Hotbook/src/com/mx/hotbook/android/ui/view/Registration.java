@@ -37,6 +37,7 @@ public class Registration extends AbstractUI implements Session.StatusCallback
                                                        , OnErrorListener {
 
   private final int SELECT_PHOTO = 1;
+  private final int FB_LOGIN = 64206;
   private EditText etMail = null;
   private EditText etUserName = null;
   private EditText etPassword = null;
@@ -88,7 +89,7 @@ public class Registration extends AbstractUI implements Session.StatusCallback
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
 	super.onActivityResult(requestCode, resultCode, data);
 	switch(requestCode) { 
-    case SELECT_PHOTO:
+      case SELECT_PHOTO:
         if(resultCode == RESULT_OK){  
           try {
 			   ivProfile.setImageBitmap(ImageUtils.getImageFromUri(data.getData()
@@ -97,7 +98,12 @@ public class Registration extends AbstractUI implements Session.StatusCallback
 				e.printStackTrace();
 		  }
         }
+        break;
+      case FB_LOGIN: Session.getActiveSession().onActivityResult(this, requestCode
+    		                                                , resultCode, data);
+                     break;
     }
+	
   }
   
   @Override
