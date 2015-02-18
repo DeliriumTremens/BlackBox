@@ -4,6 +4,13 @@
     android:layout_height="match_parent"
     tools:context="com.mx.hotbook.android.ui.view.Registration" >
 
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/imageView1" >
+        <RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <ImageView
         android:id="@+id/ivProfileBg"
         android:layout_width="wrap_content"
@@ -122,18 +129,6 @@
         android:layout_marginTop="17dp"
         android:text="@string/venue" />
 
-    <Button android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/switch1"
-            android:layout_below="@+id/switch1"
-            android:layout_marginLeft="29dp"
-            android:layout_marginTop="27dp"
-            android:background="@android:color/transparent"
-            android:textColor="@color/themeBlack"
-            android:text="@string/register" 
-            android:onClick="onClickBnRegister"/>
-
     <ImageView android:id="@+id/ivProfile"
                android:layout_width="150dip"
                android:layout_height="150dip"
@@ -155,5 +150,29 @@
                  android:background="@android:color/transparent"
                  android:contentDescription="@string/none"
                  android:onClick="onClickIbProfilePic"/>
+    
+        <LinearLayout android:id="@+id/mapContainer"
+                  android:layout_width="wrap_content"
+                  android:layout_height="200dp"
+                  android:layout_alignParentLeft="true"
+                  android:layout_alignParentStart="true"
+                  android:layout_alignParentRight="true"
+                  android:layout_alignParentEnd="true"
+                  android:layout_below="@+id/switch1"
+                  android:background="@color/themeBlack"
+                  android:orientation="vertical" 
+                  android:layout_marginTop="10dp"
+                  android:layout_marginBottom="10dp"
+                  android:paddingTop="5dp"
+                  android:paddingBottom="5dp"/>
 
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mapContainer"
+            android:layout_centerHorizontal="true" 
+            android:hint="@string/name"/>
+        </RelativeLayout>
+</ScrollView>
 </RelativeLayout>

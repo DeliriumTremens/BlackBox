@@ -1,7 +1,10 @@
 package com.mx.hotbook.android.ui.view;
 
 import java.io.FileNotFoundException;
+
+import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +20,8 @@ import com.facebook.SessionState;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 import com.facebook.widget.LoginButton.OnErrorListener;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.loopj.android.http.RequestParams;
 import com.mx.hotbook.android.R;
 import com.mx.hotbook.android.constant.Config;
@@ -39,6 +44,10 @@ public class Registration extends AbstractUI implements Session.StatusCallback
   private EditText etWebPage = null;
   private EditText etBiography = null;
   private ImageView ivProfile = null;
+  
+  private GoogleMap googleMap = null;
+  private MapFragment mapFragment = null;
+  private LocationManager locationManager = null;
 	
   @Override
   public View getLayout(LayoutInflater inflater, ViewGroup container) {
@@ -55,6 +64,11 @@ public class Registration extends AbstractUI implements Session.StatusCallback
 	etWebPage = (EditText) view.findViewById(R.id.etWebPage);
 	etBiography = (EditText) view.findViewById(R.id.etBiography);
 	ivProfile = (ImageView) view.findViewById(R.id.ivProfile);
+	mapFragment = MapFragment.newInstance();
+	FragmentTransaction fragmentTransaction =getFragmentManager()
+			                                 .beginTransaction();
+	fragmentTransaction.add(R.id.mapContainer, mapFragment);
+	fragmentTransaction.commit();
 	return view;
   }
   
