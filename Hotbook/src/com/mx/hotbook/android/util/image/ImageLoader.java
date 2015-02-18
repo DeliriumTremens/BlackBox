@@ -2,8 +2,8 @@ package com.mx.hotbook.android.util.image;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -14,6 +14,7 @@ import java.util.WeakHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
   
+
 
 
 
@@ -66,32 +67,48 @@ public class ImageLoader {
   }
   
   private Bitmap getBitmap(String url){
-    File f=fileCache.getFile(url);
-    Bitmap b = decodeFile(f);
-    Bitmap bitmap=null;
-    URL imageUrl = null;
-    HttpURLConnection conn = null;
-    InputStream is=null;
-    OutputStream os = null;
-    if(b!=null){
-      return b;
-    }
-    try {
-         imageUrl = new URL(url);
-         conn = (HttpURLConnection)imageUrl.openConnection();
-         conn.setConnectTimeout(Config.URL_CONNECTION_CONNECT_TIMEOUT);
-         conn.setReadTimeout(Config.URL_CONNECTION_READ_TIMEOUT);
-         conn.setInstanceFollowRedirects(true);
-         is=conn.getInputStream();
-         os = new FileOutputStream(f);
-         Utilities.CopyStream(is, os);
-         os.close();
-         bitmap = decodeFile(f);
-         return bitmap;
-    } catch (Exception ex){
-        ex.printStackTrace();
-        return null;
-    }
+	File f=fileCache.getFile(url);
+	Bitmap b = decodeFile(f);
+	Bitmap bitmap=null;
+	HttpURLConnection conn = null;
+	InputStream is=null;
+	OutputStream os = null;
+	if(b!=null){
+	  return b;
+	}
+	try {
+	     conn = getHttpConnection(url);
+	     is=conn.getInputStream();
+	     os = new FileOutputStream(f);
+	     Utilities.CopyStream(is, os);
+	     os.close();
+	     bitmap = decodeFile(f);
+	     return bitmap;
+	} catch (Exception ex){
+	     ex.printStackTrace();
+	     return null;
+	} finally{
+	    try{
+	    	is.close();
+	    	conn.disconnect();
+	    } catch(Exception ignored){}
+	}
+  }
+	  
+  private HttpURLConnection getHttpConnection(String url) throws IOException{
+	HttpURLConnection conn = null;
+	URL imageUrl = null;
+	imageUrl = new URL(url);
+	conn = (HttpURLConnection)imageUrl.openConnection();
+	if(conn.getHeaderField("Location") != null){
+	  imageUrl = new URL(conn.getHeaderField("Location"));
+	  conn.disconnect();
+	  conn = (HttpURLConnection) imageUrl.openConnection();
+	}
+	conn.setConnectTimeout(Config.URL_CONNECTION_CONNECT_TIMEOUT);
+	conn.setReadTimeout(Config.URL_CONNECTION_READ_TIMEOUT);
+	conn.setInstanceFollowRedirects(false);
+	return conn;
   }
   
   private Bitmap decodeFile(File f){
