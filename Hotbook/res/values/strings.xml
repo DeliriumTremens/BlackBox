@@ -29,5 +29,6 @@
     <string name="errUnexpected">Unexpected error</string>
     <string name="errCommunications">Communication Error (%1$s)</string>
     <string name="errNull">Empty response error</string>
+    <string name="errFBNotAvailable">Failed to connect FB server</string>
 
 </resources>

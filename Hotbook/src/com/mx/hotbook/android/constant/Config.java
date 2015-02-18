@@ -20,5 +20,8 @@ public class Config {
   public static final String WS_METHOD_POSTFIX = ".php";
   public static final String WS_STATUS_OK = "ok";
   public static final List<String> FB_PERMISSIONS = Arrays.asList("public_profile","email");
+  public static final int ACTIVITY_RESULT_PHOTO = 1;
+  public static final int ACTIVITY_FACEBOOK_CB = 64206;
+  public static final int LARGE_ROUND_DIP = 70;
 
 }

@@ -3,7 +3,9 @@ package com.mx.hotbook.android.util;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import android.content.Context;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
   
 public class Utilities {
 	
@@ -32,5 +34,11 @@ public class Utilities {
   public final static boolean isValidPhone(CharSequence target) {
 	return !TextUtils.isEmpty(target) && android.util.Patterns.PHONE
 			                             .matcher(target).matches();
+  }
+  
+  public static int dpToPx(int dp, Context ctx) {
+	DisplayMetrics displayMetrics = ctx.getResources().getDisplayMetrics();
+	int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));       
+	return px;
   }
 }

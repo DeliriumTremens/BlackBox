@@ -21,11 +21,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.PorterDuff.Mode;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
 import android.widget.ImageView;
   
 public class ImageLoader {
@@ -35,6 +30,7 @@ public class ImageLoader {
   private Map<ImageView, String> imageViews = null;
   private ExecutorService executorService;
   private int stub_id = R.drawable.ic_launcher;;
+  private Context ctx = null;
   
   {
    imageViews=Collections.synchronizedMap(new WeakHashMap<ImageView, String>());  
@@ -43,18 +39,19 @@ public class ImageLoader {
   public ImageLoader(Context context){
     fileCache=new FileCache(context);
     executorService=Executors.newFixedThreadPool(5);
+    this.ctx = context; 
   }
   
-  public void display(String url, ImageView imageView, boolean isCropped){
+  public void display(String url, ImageView imageView, int roundDp){
     imageViews.put(imageView, url);
     Bitmap bitmap=memoryCache.get(url);
     if(bitmap!=null){
-      if(isCropped){
-    	bitmap = ImageUtils.getCroppedBitmap(bitmap);
+      if(roundDp > 0){
+    	bitmap = ImageUtils.getCroppedBitmap(bitmap, ctx, roundDp);
       } 
       imageView.setImageBitmap(bitmap);
     } else {
-        queuePhoto(url, imageView, isCropped);
+        queuePhoto(url, imageView, roundDp);
         imageView.setImageResource(stub_id);
     }
   }
@@ -64,8 +61,8 @@ public class ImageLoader {
     fileCache.clear();
   }
   
-  private void queuePhoto(String url, ImageView imageView, boolean isCropped){
-    PhotoToLoad p=new PhotoToLoad(url, imageView, isCropped);
+  private void queuePhoto(String url, ImageView imageView, int roundPx){
+    PhotoToLoad p=new PhotoToLoad(url, imageView, roundPx);
     executorService.submit(new PhotosLoader(p));
   }
   
@@ -153,11 +150,11 @@ public class ImageLoader {
   private class PhotoToLoad{
     public String url;
     public ImageView imageView;
-    public boolean isCropped;
-    public PhotoToLoad(String u, ImageView i, boolean c){
+    public int roundPx;
+    public PhotoToLoad(String u, ImageView i, int p){
       url=u;
       imageView=i;
-      isCropped = c;
+      roundPx = p;
     }
   }
   
@@ -176,8 +173,8 @@ public class ImageLoader {
         return;
       }
       bmp = getBitmap(photoToLoad.url);
-      if(photoToLoad.isCropped){
-    	bmp = ImageUtils.getCroppedBitmap(bmp);
+      if(photoToLoad.roundPx > 0){
+    	bmp = ImageUtils.getCroppedBitmap(bmp, ctx, photoToLoad.roundPx);
       }
       memoryCache.put(photoToLoad.url, bmp);
       if(imageViewReused(photoToLoad)){

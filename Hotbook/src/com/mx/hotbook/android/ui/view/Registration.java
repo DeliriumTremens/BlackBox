@@ -1,12 +1,7 @@
 package com.mx.hotbook.android.ui.view;
 
 import java.io.FileNotFoundException;
-import java.io.InputStream;
-
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,8 +31,6 @@ import org.json.*;
 public class Registration extends AbstractUI implements Session.StatusCallback
                                                        , OnErrorListener {
 
-  private final int SELECT_PHOTO = 1;
-  private final int FB_LOGIN = 64206;
   private EditText etMail = null;
   private EditText etUserName = null;
   private EditText etPassword = null;
@@ -79,29 +72,29 @@ public class Registration extends AbstractUI implements Session.StatusCallback
       });
   }
   
-  public void onClickIvProfilePicture (View view){
+  public void onClickIbProfilePic (View view){
 	  Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
 	  photoPickerIntent.setType("image/*");
-	  startActivityForResult(photoPickerIntent, SELECT_PHOTO);  
+	  startActivityForResult(photoPickerIntent, Config.ACTIVITY_RESULT_PHOTO);  
   }
   
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
 	super.onActivityResult(requestCode, resultCode, data);
 	switch(requestCode) { 
-      case SELECT_PHOTO:
+      case Config.ACTIVITY_RESULT_PHOTO:
         if(resultCode == RESULT_OK){  
           try {
 			   ivProfile.setImageBitmap(ImageUtils.getImageFromUri(data.getData()
-					                                               , ctx, true));
+					                              , ctx, Config.LARGE_ROUND_DIP));
 		  } catch (FileNotFoundException e) {
 				e.printStackTrace();
 		  }
         }
         break;
-      case FB_LOGIN: Session.getActiveSession().onActivityResult(this, requestCode
-    		                                                , resultCode, data);
-                     break;
+      case Config.ACTIVITY_FACEBOOK_CB : Session.getActiveSession()
+                         .onActivityResult(this, requestCode, resultCode, data);
+        break;
     }
 	
   }
@@ -120,7 +113,10 @@ public class Registration extends AbstractUI implements Session.StatusCallback
 		    	etWebPage.setText(user.getLink());
 		    	etWebPage.setTextAppearance(ctx, android.R.style.TextAppearance_Small);
 		    	imgLoader.display("http://graph.facebook.com/"+user.getId()
-		    			         + "/picture?type=large", ivProfile, true);
+		    	    + "/picture?type=large", ivProfile, Config.LARGE_ROUND_DIP);
+		    } else {
+		    	ErrorManager.show(ctx.getResources().getString(R.string
+		    			         .errFBNotAvailable), (AbstractUI)ctx);
 		    }
 		  }
 		}).executeAsync();
