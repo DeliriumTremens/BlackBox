@@ -89,7 +89,8 @@ public class Register extends AbstractUI implements Session.StatusCallback
 		    	etUserName.setText(user.getUsername());
 		    	etWebPage.setText(user.getLink());
 		    	etWebPage.setTextAppearance(ctx, android.R.style.TextAppearance_Small);
-		    	imgLoader.display("http://graph.facebook.com/"+user.getId()+"/picture?type=large", ivProfile);
+		    	imgLoader.display("http://graph.facebook.com/"+user.getId()
+		    			         + "/picture?type=large", ivProfile, false);
 		    }
 		  }
 		}).executeAsync();
