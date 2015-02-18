@@ -7,7 +7,7 @@ import android.os.Environment;
 
 public class Config {
 	
-  public static final String BASE_LOCAL_PATH = "/storage/sdcard1/.hotbook";
+  public static final String BASE_LOCAL_PATH = Environment.getExternalStorageDirectory() + "/.hotbook";
   public static final String CACHE_LOCAL_PATH = BASE_LOCAL_PATH + "/cache";
   public static final Integer SPLASH_PERIOD = 1000;
   public static final Integer URL_CONNECTION_CONNECT_TIMEOUT = 3000;
