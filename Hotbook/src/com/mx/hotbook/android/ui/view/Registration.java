@@ -1,6 +1,12 @@
 package com.mx.hotbook.android.ui.view;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,14 +27,16 @@ import com.mx.hotbook.android.R;
 import com.mx.hotbook.android.constant.Config;
 import com.mx.hotbook.android.ui.AbstractUI;
 import com.mx.hotbook.android.ui.util.ErrorManager;
+import com.mx.hotbook.android.util.image.ImageUtils;
 import com.mx.hotbook.android.util.ws.RestClient;
 import com.mx.hotbook.android.util.ws.RestResponseHandler;
 
 import org.json.*;
 
-public class Register extends AbstractUI implements Session.StatusCallback
+public class Registration extends AbstractUI implements Session.StatusCallback
                                                        , OnErrorListener {
-	
+
+  private final int SELECT_PHOTO = 1;
   private EditText etMail = null;
   private EditText etUserName = null;
   private EditText etPassword = null;
@@ -40,7 +48,7 @@ public class Register extends AbstractUI implements Session.StatusCallback
 	
   @Override
   public View getLayout(LayoutInflater inflater, ViewGroup container) {
-	View view = inflater.inflate(R.layout.register, container, false);
+	View view = inflater.inflate(R.layout.registration, container, false);
 	LoginButton authButton = (LoginButton) view.findViewById(R.id.authButton);
 	authButton.setOnErrorListener(this);
 	authButton.setReadPermissions(Config.FB_PERMISSIONS);
@@ -70,10 +78,26 @@ public class Register extends AbstractUI implements Session.StatusCallback
       });
   }
   
+  public void onClickIvProfilePicture (View view){
+	  Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+	  photoPickerIntent.setType("image/*");
+	  startActivityForResult(photoPickerIntent, SELECT_PHOTO);  
+  }
+  
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
 	super.onActivityResult(requestCode, resultCode, data);
-	Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
+	switch(requestCode) { 
+    case SELECT_PHOTO:
+        if(resultCode == RESULT_OK){  
+          try {
+			   ivProfile.setImageBitmap(ImageUtils.getImageFromUri(data.getData()
+					                                               , ctx, true));
+		  } catch (FileNotFoundException e) {
+				e.printStackTrace();
+		  }
+        }
+    }
   }
   
   @Override

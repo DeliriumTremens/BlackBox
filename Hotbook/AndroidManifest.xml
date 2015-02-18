@@ -37,7 +37,7 @@
         <activity android:name="com.mx.hotbook.android.ui.view.Login"
                   android:theme="@android:style/Theme.Holo.Light.NoActionBar"/>
         
-        <activity android:name="com.mx.hotbook.android.ui.view.Register"
+        <activity android:name="com.mx.hotbook.android.ui.view.Registration"
                   android:theme="@android:style/Theme.Holo.Light.NoActionBar"/>
         
         <activity android:name="com.mx.hotbook.android.ui.view.Home"

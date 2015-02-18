@@ -29,7 +29,7 @@ public class Launcher extends AbstractUI {
   }
   
   public void onBnRegisterClick(View view){
-	startActivity(new Intent(this, Register.class));
+	startActivity(new Intent(this, Registration.class));
   }
 	
   private void printDebugerHashKey(){

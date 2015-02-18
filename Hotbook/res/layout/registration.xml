@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mx.hotbook.android.ui.view.Register" >
+    tools:context="com.mx.hotbook.android.ui.view.Registration" >
 
     <ImageView
         android:id="@+id/ivProfile"
@@ -15,7 +15,8 @@
         android:layout_alignParentTop="true"
         android:contentDescription="@string/none"
         android:scaleType="fitCenter"
-        android:src="@drawable/login_place_holder" />
+        android:src="@drawable/login_place_holder" 
+        android:onClick="onClickIvProfilePicture"/>
 
     <com.facebook.widget.LoginButton
         xmlns:fb="http://schemas.android.com/apk/res-auto"
