@@ -1,10 +1,14 @@
 package com.mx.hotbook.android.ui.view;
 
 import java.io.FileNotFoundException;
+import java.util.List;
+import java.util.Locale;
 
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.location.LocationManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +24,10 @@ import com.facebook.SessionState;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 import com.facebook.widget.LoginButton.OnErrorListener;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.loopj.android.http.RequestParams;
 import com.mx.hotbook.android.R;
 import com.mx.hotbook.android.constant.Config;
@@ -34,7 +40,7 @@ import com.mx.hotbook.android.util.ws.RestResponseHandler;
 import org.json.*;
 
 public class Registration extends AbstractUI implements Session.StatusCallback
-                                                       , OnErrorListener {
+                     , OnErrorListener, GoogleMap.OnMyLocationChangeListener {
 
   private EditText etMail = null;
   private EditText etUserName = null;
@@ -47,7 +53,6 @@ public class Registration extends AbstractUI implements Session.StatusCallback
   
   private GoogleMap googleMap = null;
   private MapFragment mapFragment = null;
-  private LocationManager locationManager = null;
 	
   @Override
   public View getLayout(LayoutInflater inflater, ViewGroup container) {
@@ -70,6 +75,13 @@ public class Registration extends AbstractUI implements Session.StatusCallback
 	fragmentTransaction.add(R.id.mapContainer, mapFragment);
 	fragmentTransaction.commit();
 	return view;
+  }
+  
+  public void onStart() {
+	super.onStart();
+	googleMap= mapFragment.getMap();
+	googleMap.setMyLocationEnabled(true);
+	googleMap.setOnMyLocationChangeListener(this);
   }
   
   public void onClickBnRegister(View view){
@@ -141,6 +153,13 @@ public class Registration extends AbstractUI implements Session.StatusCallback
   @Override
   public void onError(FacebookException error) {
 	  ErrorManager.show(error.getMessage(), this);
+  }
+  
+  @Override
+  public void onMyLocationChange (Location location) {
+    LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+    googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+    googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
   }
 
 
