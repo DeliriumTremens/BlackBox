@@ -4,11 +4,7 @@
     android:layout_height="match_parent"
     tools:context="com.mx.hotbook.android.ui.view.Registration" >
 
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-        <RelativeLayout android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+
     <ImageView
         android:id="@+id/ivProfileBg"
         android:layout_width="wrap_content"
@@ -171,6 +167,4 @@
             android:layout_below="@+id/mapContainer"
             android:layout_centerHorizontal="true" 
             android:hint="@string/name"/>
-        </RelativeLayout>
-</ScrollView>
 </RelativeLayout>
