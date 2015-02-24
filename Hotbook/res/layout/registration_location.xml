@@ -5,26 +5,27 @@
     tools:context="com.mx.hotbook.android.ui.view.RegistrationLocation">
 
     <EditText
-                android:id="@+id/editText1"
+                android:id="@+id/etAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_toLeftOf="@+id/imageButton1"
+                android:layout_toLeftOf="@+id/ibFindLocation"
                 android:ems="10" >
 
                 <requestFocus />
             </EditText>
 
             <ImageButton
-                android:id="@+id/imageButton1"
+                android:id="@+id/ibFindLocation"
                 android:layout_width="40dip"
                 android:layout_height="40dip"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:scaleType="fitXY"
                 android:src="@drawable/common_search"
-                android:background="@android:color/transparent" />
+                android:background="@android:color/transparent" 
+                android:onClick="onClickIbFindLocation"/>
             
             <LinearLayout
                 android:id="@+id/mapContainer"
@@ -33,7 +34,7 @@
                 android:layout_above="@+id/button1"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/editText1"
+                android:layout_below="@+id/etAddress"
                 android:background="@color/themeBlack"
                 android:orientation="vertical"
                 android:paddingBottom="1dp"
