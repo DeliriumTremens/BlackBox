@@ -56,6 +56,9 @@
         <activity android:name="com.mx.hotbook.android.ui.view.Registration"
                   android:theme="@android:style/Theme.Holo.Light.NoActionBar"/>
         
+        <activity android:name="com.mx.hotbook.android.ui.view.RegistrationLocation"
+                  android:theme="@android:style/Theme.Holo.Light.NoActionBar"/>
+        
         <activity android:name="com.mx.hotbook.android.ui.view.Home"
                   android:theme="@android:style/Theme.Holo.Light.NoActionBar"/>
          

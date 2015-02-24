@@ -144,27 +144,17 @@
                  android:background="@android:color/transparent"
                  android:contentDescription="@string/none"
                  android:onClick="onClickIbProfilePic"/>
-    
-        <LinearLayout android:id="@+id/mapContainer"
-                  android:layout_width="wrap_content"
-                  android:layout_height="200dp"
-                  android:layout_alignParentLeft="true"
-                  android:layout_alignParentStart="true"
-                  android:layout_alignParentRight="true"
-                  android:layout_alignParentEnd="true"
-                  android:layout_below="@+id/switch1"
-                  android:background="@color/themeBlack"
-                  android:orientation="vertical" 
-                  android:layout_marginTop="10dp"
-                  android:layout_marginBottom="10dp"
-                  android:paddingTop="5dp"
-                  android:paddingBottom="5dp"/>
 
-        <Spinner
-            android:id="@+id/spinner1"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/mapContainer"
-            android:layout_centerHorizontal="true" 
-            android:hint="@string/name"/>
+    <EditText
+        android:id="@+id/etAddress"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/switch1"
+        android:layout_marginTop="27dp"
+        android:ems="10"
+        android:hint="@string/address"
+        android:inputType="text" 
+        android:onClick="onClickEtAddress"/>
+
 </RelativeLayout>

@@ -1,17 +1,13 @@
 package com.mx.hotbook.android.ui.view;
 
 import java.io.FileNotFoundException;
-import java.util.List;
-import java.util.Locale;
 
-import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,10 +20,6 @@ import com.facebook.SessionState;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 import com.facebook.widget.LoginButton.OnErrorListener;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.model.LatLng;
 import com.loopj.android.http.RequestParams;
 import com.mx.hotbook.android.R;
 import com.mx.hotbook.android.constant.Config;
@@ -39,8 +31,8 @@ import com.mx.hotbook.android.util.ws.RestResponseHandler;
 
 import org.json.*;
 
-public class Registration extends AbstractUI implements Session.StatusCallback
-                     , OnErrorListener, GoogleMap.OnMyLocationChangeListener {
+public class Registration extends AbstractUI 
+                          implements Session.StatusCallback, OnErrorListener{
 
   private EditText etMail = null;
   private EditText etUserName = null;
@@ -49,10 +41,8 @@ public class Registration extends AbstractUI implements Session.StatusCallback
   private EditText etName = null;
   private EditText etWebPage = null;
   private EditText etBiography = null;
+  private EditText etAddress = null;
   private ImageView ivProfile = null;
-  
-  private GoogleMap googleMap = null;
-  private MapFragment mapFragment = null;
 	
   @Override
   public View getLayout(LayoutInflater inflater, ViewGroup container) {
@@ -68,20 +58,17 @@ public class Registration extends AbstractUI implements Session.StatusCallback
 	etName = (EditText) view.findViewById(R.id.etName);
 	etWebPage = (EditText) view.findViewById(R.id.etWebPage);
 	etBiography = (EditText) view.findViewById(R.id.etBiography);
+	etAddress = (EditText) view.findViewById(R.id.etAddress);
 	ivProfile = (ImageView) view.findViewById(R.id.ivProfile);
-	mapFragment = MapFragment.newInstance();
-	FragmentTransaction fragmentTransaction =getFragmentManager()
-			                                 .beginTransaction();
-	fragmentTransaction.add(R.id.mapContainer, mapFragment);
-	fragmentTransaction.commit();
+	etAddress.setOnFocusChangeListener(new OnFocusChangeListener(){
+      @Override
+	  public void onFocusChange(View v, boolean hasFocus) {
+		if(hasFocus){
+			startActivity(new Intent(ctx, RegistrationLocation.class));
+		}	
+	  }
+	});
 	return view;
-  }
-  
-  public void onStart() {
-	super.onStart();
-	googleMap= mapFragment.getMap();
-	googleMap.setMyLocationEnabled(true);
-	googleMap.setOnMyLocationChangeListener(this);
   }
   
   public void onClickBnRegister(View view){
@@ -99,9 +86,9 @@ public class Registration extends AbstractUI implements Session.StatusCallback
   }
   
   public void onClickIbProfilePic (View view){
-	  Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-	  photoPickerIntent.setType("image/*");
-	  startActivityForResult(photoPickerIntent, Config.ACTIVITY_RESULT_PHOTO);  
+	Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+	photoPickerIntent.setType("image/*");
+	startActivityForResult(photoPickerIntent, Config.ACTIVITY_RESULT_PHOTO);  
   }
   
   @Override
@@ -154,13 +141,5 @@ public class Registration extends AbstractUI implements Session.StatusCallback
   public void onError(FacebookException error) {
 	  ErrorManager.show(error.getMessage(), this);
   }
-  
-  @Override
-  public void onMyLocationChange (Location location) {
-    LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-    googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-    googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-  }
-
 
 }

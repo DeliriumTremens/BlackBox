@@ -11,6 +11,7 @@
     <string name="name">NAME</string>
     <string name="webPage">WEB PAGE</string>
     <string name="biography">BIO</string>
+    <string name="address">ADDRESS</string>
     <string name="venue">VENUE?</string>
     <string name="login">LOGIN</string>
     <string name="none"></string>

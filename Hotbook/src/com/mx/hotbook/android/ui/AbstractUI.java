@@ -29,7 +29,7 @@ import android.widget.TextView;
 
 public abstract class AbstractUI extends Activity {
  
-  protected static final String TAG = "LorantAsegura";
+  protected static final String TAG = "Hotbook";
   protected DrawerLayout drawerLayout = null;
   protected RelativeLayout rootView = null;
   protected ActionBar actionBar = null;
